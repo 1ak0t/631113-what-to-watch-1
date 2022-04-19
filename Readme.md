@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Игорь Кот](https://up.htmlacademy.ru/nodejs-api/1/user/631113).
-* Наставник: `Неизвестно`.
+* Наставник: [Владимир Коршунов](https://htmlacademy.ru/profile/bekobou).
 
 ---
 
