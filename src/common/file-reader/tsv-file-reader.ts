@@ -1,43 +1,34 @@
 import {FileReaderInterface} from './file-reader.interface';
-import {readFileSync} from 'fs';
-import {Film} from '../../types/films.js';
+import {createReadStream} from 'fs';
+import EventEmitter from 'events';
 
-export default class TSVFileReader implements FileReaderInterface {
-  private rawData = '';
-
-  constructor(public filename: string) {}
-
-  public read(): void {
-    this.rawData = readFileSync(this.filename, {encoding: 'utf-8'});
+export default class TSVFileReader extends EventEmitter implements FileReaderInterface {
+  constructor(public filename: string) {
+    super();
   }
 
-  public toArray(): Film[] {
-    if(!this.rawData) {
-      return [];
+  public async read(): Promise<void> {
+    const stream = createReadStream(this.filename, {
+      highWaterMark: 16384,
+      encoding: 'utf-8',
+    });
+
+    let lineRead = '';
+    let endLinePosition = -1;
+    let importedRowCount = 0;
+
+    for await (const chunk of stream) {
+      lineRead += chunk.toString();
+
+      while ((endLinePosition = lineRead.indexOf('\n')) >= 0) {
+        const completeRow = lineRead.slice(0, endLinePosition + 1);
+        lineRead = lineRead.slice(++endLinePosition);
+        importedRowCount++;
+
+        this.emit('line', completeRow);
+      }
     }
 
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim() !== '')
-      .map((line) => line.split('\t'))
-      .map(([name, posterImage, previewImage, backgroundImage, backgroundColor, description, rating, scoresCount, director, starring, runTime, genre, released, id, isFavorite, videoLink, previewVideoLink]) => ({
-        name,
-        posterImage,
-        previewImage,
-        backgroundImage,
-        backgroundColor,
-        description,
-        rating: Number(rating),
-        scoresCount: Number(scoresCount),
-        director,
-        starring,
-        runTime: Number(runTime),
-        genre,
-        released: Number(released),
-        id: Number(id),
-        isFavorite: Boolean(isFavorite),
-        videoLink,
-        previewVideoLink
-      }));
+    this.emit('end', importedRowCount);
   }
 }
