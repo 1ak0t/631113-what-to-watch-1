@@ -1,5 +1,5 @@
 import {CliCommandInterface} from './cli-command.interface.js';
-import {MockData} from '../types/mock-data.type.js';
+import {MockData} from '../types/mock-data.types.js';
 import got from 'got';
 import FilmGenerator from '../common/film-generator/film-generator.js';
 import TSVFileWriter from '../common/file-writer/file-writer.js';
