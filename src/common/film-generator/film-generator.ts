@@ -1,5 +1,5 @@
 import {FilmGeneratorInterface} from './film-generator.interface.js';
-import {MockData} from '../../types/mock-data.type.js';
+import {MockData} from '../../types/mock-data.types.js';
 import {getRandomItem, getRandomItems} from '../../utils/random.js';
 
 export default class FilmGenerator implements FilmGeneratorInterface {
