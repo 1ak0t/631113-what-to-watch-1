@@ -9,40 +9,42 @@ export default class FilmGenerator implements FilmGeneratorInterface {
 
     const names = getRandomItem<string>(this.mockData.names);
     const posterImage = getRandomItem<string>(this.mockData.posterImages);
-    const previewImage = getRandomItem<string>(this.mockData.previewImages);
     const backgroundImage = getRandomItem<string>(this.mockData.backgroundImages);
     const backgroundColor = getRandomItem<string>(this.mockData.backgroundColors);
     const description = getRandomItem<string>(this.mockData.description);
     const rating = getRandomItem<number>(this.mockData.ratings);
-    const scoresCount = getRandomItem<number>(this.mockData.scoresCounts);
+    const comments = getRandomItem<number>(this.mockData.comments);
     const director = getRandomItem<string>(this.mockData.director);
     const starring = getRandomItems<string>(this.mockData.starring).join(',');
     const runTime = getRandomItem<number>(this.mockData.runTime);
     const genre = getRandomItem<string>(this.mockData.genres);
     const released = getRandomItem<number>(this.mockData.released);
-    const id = getRandomItem<number>(this.mockData.id);
-    const isFavorite = getRandomItem<boolean>(this.mockData.isFavorite);
     const videoLink = getRandomItem<string>(this.mockData.videoLink);
     const previewVideoLink = getRandomItem<string>(this.mockData.previewVideoLink);
+    const date = getRandomItem<string>(this.mockData.date);
+    const user = getRandomItem<string>(this.mockData.user);
+    const avatar = getRandomItem<string>(this.mockData.avatar);
+    const email = getRandomItem<string>(this.mockData.email);
 
     return [
       names,
-      posterImage,
-      previewImage,
-      backgroundImage,
-      backgroundColor,
       description,
-      rating,
-      scoresCount,
-      director,
-      starring,
-      runTime,
+      date,
       genre,
       released,
-      id,
-      isFavorite,
+      rating,
+      previewVideoLink,
       videoLink,
-      previewVideoLink
+      starring,
+      director,
+      runTime,
+      comments,
+      user,
+      email,
+      avatar,
+      posterImage,
+      backgroundImage,
+      backgroundColor
     ].join('\t');
   }
 }
