@@ -2,7 +2,6 @@ import {ConfigInterface} from './config.interface.js';
 import {LoggerInterface} from '../logger/logger.interface.js';
 import {config} from 'dotenv';
 import {configSchema, ConfigSchema} from './config.schema.js';
-import 'reflect-metadata';
 import {injectable, inject} from 'inversify';
 import {Component} from '../../types/component.types.js';
 

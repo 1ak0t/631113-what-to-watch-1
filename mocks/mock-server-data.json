@@ -10,37 +10,33 @@
       "Пленницы",
       "Мотылёк"
     ],
-    "posterImages": [
-      "https://9.react.pages.academy/static/film/poster/Pulp_Fiction.jpg",
-      "https://9.react.pages.academy/static/film/poster/Seven_Years_in_Tibet.jpg"
-    ],
-    "previewImages": [
-      "https://9.react.pages.academy/static/film/preview/pulp-fiction.jpg",
-      "https://9.react.pages.academy/static/film/preview/seven-years-in-tibet.jpg"
-    ],
-    "backgroundImages": [
-      "https://9.react.pages.academy/static/film/background/Pulp_Fiction.jpg",
-      "https://9.react.pages.academy/static/film/background/Seven_Years_in_Tibet.jpg"
-    ],
-    "backgroundColors": [
-      "#795433",
-      "#C6CADF",
-      "#AD9F8B",
-      "#E1DFDE"
-    ],
     "description": [
       "The lives of two mob hitmen, a boxer, a gangster & his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
       "True story of Heinrich Harrer, an Austrian mountain climber who became friends with the Dalai Lama at the time of China's takeover of Tibet.",
       "A year after their father's funeral, three brothers travel across India by train in an attempt to bond with each other."
     ],
+    "date": ["13.06.21", "31.01.22", "05.05.22"],
+    "genres": [
+      "Comedy",
+      "Crime",
+      "Documentary",
+      "Drama",
+      "Horror",
+      "Family",
+      "Romance",
+      "Scifi",
+      "Thriller"
+    ],
+    "released": [2001,1962,2008,2017,1997,2021],
     "ratings": [5,2,4,1,6,8,3,9,3,4,5],
-    "scoresCounts": [1564,1556,7895,132,11285,66745],
-    "director": [
-      "Quentin Tarantino",
-      "Jean-Jacques Annaud",
-      "Wes Anderson",
-      "Lynne Ramsay",
-      "Bradley Cooper"
+    "previewVideoLink": [
+      "https://9.react.pages.academy/static/film/video/dog.mp4",
+      "https://9.react.pages.academy/static/film/video/traffic.mp4"
+    ],
+    "videoLink": [
+      "https://9.react.pages.academy/static/film/video/bike.mp4",
+      "https://9.react.pages.academy/static/film/video/matrix.mp4",
+      "https://9.react.pages.academy/static/film/video/bubbles.mp4"
     ],
     "starring": [
       "Lady Gaga",
@@ -53,25 +49,34 @@
       "Adrien Brody",
       "Jason Schwartzman"
     ],
+    "director": [
+      "Quentin Tarantino",
+      "Jean-Jacques Annaud",
+      "Wes Anderson",
+      "Lynne Ramsay",
+      "Bradley Cooper"
+    ],
     "runTime": [75,56,98,75,91,124],
-    "genres": [
-      "Adventure",
-      "Drama",
-      "Crime",
-      "Fantasy",
-      "Action"
+    "comments": [1564,1556,7895,132,11285,66745],
+    "user": ["John", "Snow"],
+    "posterImages": [
+      "https://9.react.pages.academy/static/film/poster/Pulp_Fiction.jpg",
+      "https://9.react.pages.academy/static/film/poster/Seven_Years_in_Tibet.jpg"
     ],
-    "released": [2001,1962,2008,2017,1997,2021],
-    "id": [1,2,3,4,5,6,7,8,9,10],
-    "isFavorite": [false, true],
-    "videoLink": [
-      "https://9.react.pages.academy/static/film/video/bike.mp4",
-      "https://9.react.pages.academy/static/film/video/matrix.mp4",
-      "https://9.react.pages.academy/static/film/video/bubbles.mp4"
+    "backgroundImages": [
+      "https://9.react.pages.academy/static/film/background/Pulp_Fiction.jpg",
+      "https://9.react.pages.academy/static/film/background/Seven_Years_in_Tibet.jpg"
     ],
-    "previewVideoLink": [
-      "https://9.react.pages.academy/static/film/video/dog.mp4",
-      "https://9.react.pages.academy/static/film/video/traffic.mp4"
+    "backgroundColors": [
+      "#795433",
+      "#C6CADF",
+      "#AD9F8B",
+      "#E1DFDE"
+    ],
+    "email": ["john@john.com", "snow@snow.com"],
+    "avatar": [
+      "https://9.react.pages.academy/static/film/background/Pulp_Fiction.jpg",
+      "https://9.react.pages.academy/static/film/background/Seven_Years_in_Tibet.jpg"
     ]
   }
 }

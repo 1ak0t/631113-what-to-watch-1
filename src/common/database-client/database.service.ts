@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import {DatabaseInterface} from './database.interface.js';
 import {inject, injectable} from 'inversify';
 import {Component} from '../../types/component.types.js';
