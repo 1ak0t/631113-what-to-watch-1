@@ -1,0 +1,323 @@
+openapi: "3.0.2"
+info:
+  title: REST API сервер для проекта What to watch.
+  description: Список ресурсов и маршрутов сервера What to watch.
+  version: 1.0.0
+tags:
+  - name: films
+    description: Действия с фильмами
+  - name: promo
+    description: Получить промо-фильм
+  - name: favorites
+    description: Действия с фильмами "К просмотру"
+  - name: comment
+    description: Действия с комментариями
+  - name: user
+    description: Действие с пользователями
+paths:
+  /films/:
+    get:
+      tags:
+        - films
+      summary: Получить список фильмов
+      description: Получает список фильмов
+      operationId: getFilms
+      responses:
+        '200':
+          description: Массив фильмов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+    post:
+      tags:
+        - films
+      summary: Добавить новый фильм
+      description: Добавляет новый фильм
+      operationId: createFilm
+      requestBody:
+        description: Объект с новым фильмом
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFilm'
+        required: true
+      responses:
+        '201':
+          description: Фильм создан
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Film'
+        '400':
+          description: Ошибка тела запроса
+          content: {}
+        '404':
+          description: Фильм не найден
+          content: {}
+  /films/{filmId}:
+    get:
+      tags:
+        - films
+      summary: Получение детальной информации о фильме
+      description: Получение детальной информации о фильме с идентификатором {filmId}
+      operationId: getFilm
+      parameters:
+        - name: filmId
+          in: path
+          description: Уникальный идентификатор фильма
+          required: true
+          schema:
+            type: string
+            example: lkn234kn
+      responses:
+        '200':
+          description: Фильм
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Film'
+    put:
+      tags:
+        - films
+      summary: Редактирование карточки фильма
+      description: Обновляет фильм с идентификатором {filmId}
+      operationId: updateFilmById
+      parameters:
+        - name: filmId
+          in: path
+          description: Уникальный идентификатор фильма
+          required: true
+          schema:
+            type: string
+            example: j1k3n5
+      requestBody:
+        description: Объект с измененным фильмом
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFilm'
+        required: true
+      responses:
+        '200':
+          description: Фильм обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '404':
+          description: Фильм не найден
+          content: {}
+    delete:
+      tags:
+        - films
+      summary: Удалить фильм
+      description: Удаляет фильм с идентификатором {filmId}
+      operationId: deleteFilmById
+      parameters:
+        - name: filmId
+          in: path
+          description: Уникальный идентификатор фильма
+          required: true
+          schema:
+            type: string
+            example: rg34g52
+      responses:
+        '200':
+          description: Фильм удален
+          content: {}
+        '404':
+          description: Фильм не найден
+          content: {}
+  /promo:
+    get:
+      tags:
+        - promo
+      summary: Получить промо-фильм
+      description: Получает промо-фильм
+      operationId: getPromo
+      responses:
+        '200':
+          description: Промо-фильм
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Film'
+        '404':
+          description: Фильм не найден
+          content: {}
+  /favorites:
+    get:
+      tags:
+        - favorites
+      summary: Получить список фильмов "К просмотру"
+      description: Получает список фильмов "К просмотру"
+      operationId: getFavorites
+      responses:
+        '200':
+          description: Массив фильмов "К просмотру"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+        '401':
+          description: Пользователь не авторизован
+          content: {}
+        '404':
+          description: Фильмы не найдены
+          content: {}
+  /favorites/{filmId}:
+    post:
+      tags:
+        - favorites
+      summary: Добавить фильм в список "К просмотру"
+      description: Добавляет фильм в список "К просмотру"
+      operationId: addFavorites
+      parameters:
+        - name: filmId
+          in: path
+          description: Уникальный идентификатор фильма
+          required: true
+          schema:
+            type: string
+            example: lk23ml23
+      responses:
+        '200':
+          description: Добавленный фильм
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Film'
+        '401':
+          description: Пользователь не авторизован
+          content: {}
+        '404':
+          description: Фильм не найден
+          content: {}
+    delete:
+      tags:
+        - favorites
+      summary: Удаляет фильм из списка "К просмотру"
+      description: Удаляет фильм из списка "К просмотру"
+      operationId: removeFavorites
+      parameters:
+        - name: filmId
+          in: path
+          description: Уникальный идентификатор фильма
+          required: true
+          schema:
+            type: string
+            example: lk23ml23
+      responses:
+        '200':
+          description: Фильм удален
+          content: {}
+        '401':
+          description: Пользователь не авторизован
+          content: {}
+        '404':
+          description: Фильм не найден
+          content: {}
+components:
+  schemas:
+    CreateFilm:
+      type: object
+      properties:
+        name:
+          type: string
+          example: The Grand Budapest Hotel
+        description:
+          type: string
+          example: In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.
+        date:
+          type: string
+          example: 2021-12-12T21:55:28.147Z
+        genre:
+          $ref: '#/components/schemas/Genre'
+        released:
+          type: integer
+          format: int32
+          example: 2014
+        rating:
+          type: integer
+          format: int32
+          example: 8.9
+        previewVideoLink:
+          type: string
+          example: https://some-link
+        videoLink:
+          type: string
+          example: https://some-link
+        starring:
+          type: array
+          example: ["Bill Murray"]
+        director:
+          type: string
+          example: Wes Anderson
+        runTime:
+          type: integer
+          format: int32
+          example: 99
+        comments:
+          type: integer
+          format: int32
+          example: 240
+        user:
+          $ref: '#/components/schemas/User'
+        posterImage:
+          type: string
+          example: https://some-link
+        backgroundImage:
+          type: string
+          example: https://some-link
+        backgroundColor:
+          type: string
+          example: https://some-link
+    Film:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: l23lzpa3
+            commentCount:
+              type: integer
+              format: int32
+              example: 5
+        - $ref: '#/components/schemas/CreateFilm'
+    User:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: Oliver.conner
+        email:
+          type: string
+          example: liver.conner@gmail.com
+        avatar:
+          type: string
+          example: img/1.png
+    Genre:
+      type: string
+      enum:
+        - comedy
+        - crime
+        - documentary
+        - drama
+        - horror
+        - family
+        - romance
+        - scifi
+        - thriller
