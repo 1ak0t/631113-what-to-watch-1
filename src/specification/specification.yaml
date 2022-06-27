@@ -50,9 +50,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Film'
+                $ref: '#/components/schemas/Film'
         '400':
           description: Ошибка тела запроса
           content: {}
@@ -80,9 +78,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Film'
+                $ref: '#/components/schemas/Film'
     put:
       tags:
         - films
@@ -175,9 +171,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Film'
+                $ref: '#/components/schemas/Film'
         '404':
           description: Фильм не найден
           content: {}
@@ -224,9 +218,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/Film'
+                $ref: '#/components/schemas/Film'
         '401':
           description: Пользователь не авторизован
           content: {}
@@ -250,7 +242,10 @@ paths:
       responses:
         '200':
           description: Фильм удален
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
         '401':
           description: Пользователь не авторизован
           content: {}
@@ -277,7 +272,6 @@ paths:
         content:
           application/json:
             schema:
-              items: object
               $ref: '#/components/schemas/Comment'
       responses:
         '200':
@@ -285,7 +279,6 @@ paths:
           content:
             application/json:
               schema:
-                items: object
                 $ref: '#/components/schemas/Comment'
         '401':
           description: Пользователь не авторизован
@@ -505,4 +498,3 @@ components:
         error:
           type: string
           example: Film id 999 does not exist
-    securitySchemes:
