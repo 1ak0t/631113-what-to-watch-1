@@ -10,9 +10,9 @@ tags:
     description: Получить промо-фильм
   - name: favorites
     description: Действия с фильмами "К просмотру"
-  - name: comment
+  - name: comments
     description: Действия с комментариями
-  - name: user
+  - name: users
     description: Действие с пользователями
 paths:
   /films/:
@@ -135,6 +135,33 @@ paths:
         '404':
           description: Фильм не найден
           content: {}
+  /films/genres/{genreName}:
+    get:
+      tags:
+        - films
+      summary: Получить список фильмов по жанру
+      description: Возвращает список фильмов по жанру
+      operationId: getFilmsByGenre
+      parameters:
+        - name: genreName
+          in: path
+          description: Название жанра
+          required: true
+          schema:
+            type: string
+            example: Fantasy
+      responses:
+        '200':
+          description: Получен список фильмов по жанру
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+        '404':
+          description: Фильмы не найден
+          content: {}
   /promo:
     get:
       tags:
@@ -230,6 +257,115 @@ paths:
         '404':
           description: Фильм не найден
           content: {}
+  /comments/{filmId}:
+    post:
+      tags:
+        - comments
+      summary: Добавляет комментарий к фильму
+      description: Добавить комментарий к фильму
+      operationId: addComment
+      parameters:
+        - name: filmId
+          in: path
+          description: Уникальный идентификатор фильма
+          required: true
+          schema:
+            type: string
+            example: 42j423jjs
+      requestBody:
+        description: Комментарий к фильму
+        content:
+          application/json:
+            schema:
+              items: object
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '200':
+          description: Комментарий добавлен
+          content:
+            application/json:
+              schema:
+                items: object
+                $ref: '#/components/schemas/Comment'
+        '401':
+          description: Пользователь не авторизован
+          content: {}
+        '404':
+          description: Комментарий не найден
+          content: {}
+  /login:
+    get:
+      tags:
+        - users
+      summary: Проверить статус авторизации пользователя
+      description: Возвращает информацию о статусе авторизации пользователя.
+      operationId: getUserStatus
+      parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+      responses:
+        '200':
+          description: Статус авторизации пользователя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthInfo'
+        '401':
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthErrorMessage'
+      security:
+        - tokenAuth: []
+    post:
+      tags:
+        - users
+      summary: Авторизоваться на сервере
+      description: Отправляет авторизационные данные пользователя (логин и пароль). В случае успешного запроса сервер вернёт токен, по которому в дальнейшем происходит авторизация. Этот токен необходимо передавать через заголовок X-Token. Если авторизация не проходит, сервер вернёт код состояния 401 при запросах на закрытые части сайта.
+      operationId: postLogin
+      requestBody:
+        description: Объект, содержащий логин и пароль пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+        required: true
+      responses:
+        '200':
+          description: Статус авторизации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthInfo'
+        '400':
+          description: Ошибка тела запроса
+          content: {}
+  /logout:
+    delete:
+      tags:
+        - users
+      summary: Завершить сеанс пользователя
+      description: Завершает сеанс работы — выход из закрытой части приложения.
+      operationId: deleteLogout
+      parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+      responses:
+        '204':
+          description: Сеанс завершён
+      security:
+        - tokenAuth: []
 components:
   schemas:
     CreateFilm:
@@ -309,6 +445,15 @@ components:
         avatar:
           type: string
           example: img/1.png
+    UserRegistration:
+      type: object
+      properties:
+        email:
+          type: string
+          example: liver.conner@gmail.com
+        password:
+          type: string
+          example: 123456
     Genre:
       type: string
       enum:
@@ -321,3 +466,43 @@ components:
         - romance
         - scifi
         - thriller
+    Comment:
+      type: object
+      properties:
+        commentText:
+          type: string
+          example: Good film!
+        commentRating:
+          type: number
+          example: 4.3
+    AuthInfo:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+          example: img/1.png
+        email:
+          type: string
+          example: Oliver.conner@gmail.com
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: Oliver.conner
+        token:
+          type: string
+          example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+    AuthErrorMessage:
+      type: object
+      properties:
+        error:
+          type: string
+          example: You are not logged in or you do not have permission to this page.
+    NotFoundErrorMessage:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Film id 999 does not exist
+    securitySchemes:
