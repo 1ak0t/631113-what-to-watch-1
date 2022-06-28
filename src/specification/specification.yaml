@@ -286,7 +286,7 @@ paths:
         '404':
           description: Комментарий не найден
           content: {}
-  /login:
+  /user/login:
     get:
       tags:
         - users
@@ -339,13 +339,33 @@ paths:
         '400':
           description: Ошибка тела запроса
           content: {}
-  /logout:
+  /user/logout:
     delete:
       tags:
         - users
       summary: Завершить сеанс пользователя
       description: Завершает сеанс работы — выход из закрытой части приложения.
       operationId: deleteLogout
+      parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+      responses:
+        '204':
+          description: Сеанс завершён
+      security:
+        - tokenAuth: []
+  /user/register:
+    delete:
+      tags:
+        - users
+      summary: Зарегистрировать пользователя
+      description: Зарегистрировать пользователя
+      operationId: registerUser
       parameters:
         - name: X-Token
           in: header

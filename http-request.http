@@ -1,0 +1,39 @@
+POST http://localhost:4000/user/register
+Content-Type: application/json
+
+{
+  "userName": "Film",
+  "email": "films@test.ru",
+  "avatar": "asdasd.jpg",
+  "password": "pwe1qewr;qwm"
+}
+
+###
+POST http://localhost:4000/films
+Content-Type: application/json
+
+{
+  "name": "А такого нет",
+  "description": "True story of Heinrich Harrer, an Austrian mountain climber who became friends with the Dalai Lama at the time of China's takeover of Tibet.",
+  "date": "Invalid Date",
+  "genre": "Crime",
+  "released": 2008,
+  "rating": 5,
+  "previewVideoLink": "https://9.react.pages.academy/static/film/video/dog.mp4",
+  "videoLink": "https://9.react.pages.academy/static/film/video/matrix.mp4",
+  "starring": "Bradley Cooper,Sam Elliott,Tilda Swinton,John C. Reilly,Ezra Miller,Owen Wilson,Adrien Brody,Jason Schwartzman",
+  "director": "Wes Anderson",
+  "runTime": 75,
+  "comments": 132,
+  "user": "62bac65b629002f94b4f9291",
+  "posterImage": "https://9.react.pages.academy/static/film/poster/Seven_Years_in_Tibet.jpg",
+  "backgroundImage": "https://9.react.pages.academy/static/film/background/Pulp_Fiction.jpg",
+  "backgroundColor": "#AD9F8B"
+}
+
+###
+###
+http://localhost:4000/films
+Content-Type: application/json
+
+###
