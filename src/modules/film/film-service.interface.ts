@@ -4,5 +4,6 @@ import {FilmEntity} from './film.entity.js';
 
 export interface FilmServiceInterface {
   create(dto: CreateFilmDto): Promise<DocumentType<FilmEntity>>;
-  findById(filmId: string): Promise<DocumentType<FilmEntity> | null>;
+  findByName(filmId: string): Promise<DocumentType<FilmEntity> | null>;
+  find(): Promise<DocumentType<FilmEntity>[]>;
 }

@@ -21,7 +21,11 @@ export default class FilmService implements FilmServiceInterface {
     return result;
   }
 
-  public async findById(filmId: string): Promise<DocumentType<FilmEntity> | null> {
-    return this.filmModel.findById(filmId).exec();
+  public async findByName(filmName: string): Promise<DocumentType<FilmEntity> | null> {
+    return this.filmModel.findOne({name: filmName}).exec();
+  }
+
+  public async find(): Promise<DocumentType<FilmEntity>[]> {
+    return this.filmModel.find();
   }
 }
