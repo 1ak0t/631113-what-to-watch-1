@@ -22,10 +22,26 @@ export default class FilmService implements FilmServiceInterface {
   }
 
   public async findByName(filmName: string): Promise<DocumentType<FilmEntity> | null> {
-    return this.filmModel.findOne({name: filmName}).exec();
+    return this.filmModel.findOne({name: filmName}).populate(['user']).exec();
+  }
+
+  public async findById(filmId: string): Promise<DocumentType<FilmEntity> | null> {
+    return this.filmModel.findById({_id: filmId}).populate(['user']).exec();
+  }
+
+  public async updateById(filmId: string, dto: CreateFilmDto): Promise<DocumentType<FilmEntity> | null> {
+    return this.filmModel.findByIdAndUpdate(filmId, dto, {new: true});
   }
 
   public async find(): Promise<DocumentType<FilmEntity>[]> {
-    return this.filmModel.find();
+    return this.filmModel.find().populate(['user']).exec();
+  }
+
+  public async deleteById(filmId: string): Promise<DocumentType<FilmEntity> | null> {
+    return this.filmModel.findByIdAndDelete(filmId).exec();
+  }
+
+  public async findByGenre(genreName: string): Promise<DocumentType<FilmEntity>[] | null> {
+    return this.filmModel.find({genre: genreName}).populate(['user']).exec();
   }
 }

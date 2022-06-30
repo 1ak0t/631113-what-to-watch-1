@@ -131,7 +131,7 @@ paths:
         '404':
           description: Фильм не найден
           content: {}
-  /films/genres/{genreName}:
+  /films/genre/{genreName}:
     get:
       tags:
         - films
