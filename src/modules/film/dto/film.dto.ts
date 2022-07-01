@@ -1,6 +1,10 @@
-import {Expose} from 'class-transformer';
+import {Expose, Type} from 'class-transformer';
+import UserDto from '../../user/dto/user.dto.js';
 
 export default class FilmDto {
+  @Expose()
+  public id!: string;
+
   @Expose()
   public name!: string;
 
@@ -38,7 +42,8 @@ export default class FilmDto {
   public comments!: number;
 
   @Expose()
-  public user!: string;
+  @Type(() => UserDto)
+  public user!: UserDto;
 
   @Expose()
   public posterImage!: string;

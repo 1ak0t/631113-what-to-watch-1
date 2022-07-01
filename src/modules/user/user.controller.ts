@@ -11,6 +11,7 @@ import HttpError from '../../common/errors/http-error.js';
 import {StatusCodes} from 'http-status-codes';
 import {fillDTO} from '../../utils/common.js';
 import UserDto from './dto/user.dto.js';
+import LoginUserDto from './dto/login-user.dto';
 
 export default class UserController extends Controller {
   constructor(
@@ -23,6 +24,7 @@ export default class UserController extends Controller {
     this.logger.info('Register routes for UserController…');
 
     this.addRoute({path: '/register', method: HttpMethod.Post, handler: this.create});
+    this.addRoute({path: '/login', method: HttpMethod.Post, handler:this.login});
   }
 
   public async create(
@@ -41,10 +43,28 @@ export default class UserController extends Controller {
     }
 
     const result = await this.userService.create(body, this.configService.get('SALT'));
-    this.send(
-      res,
-      StatusCodes.CREATED,
-      fillDTO(UserDto, result)
+    this.created(res, fillDTO(UserDto, result));
+  }
+
+  public async login(
+    {body}: Request<Record<string, unknown>, Record<string, unknown>, LoginUserDto>,
+    _res: Response
+  ): Promise<void> {
+
+    const existUser = await this.userService.findByEmail(body.email);
+
+    if (!existUser) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        `User with email ${body.email} not found`,
+        'UserController'
+      );
+    }
+
+    throw new HttpError(
+      StatusCodes.NOT_IMPLEMENTED,
+      'Not implemented',
+      'UserController'
     );
   }
 }
